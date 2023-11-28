@@ -12,12 +12,6 @@ jobs:
   GLaDOS-Signin:
     runs-on: ubuntu-latest
     env:
-      USE_SMTP: ${{ secrets.USE_SMTP }}
-      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_RECEIVER: ${{ secrets.SMTP_RECEIVER }}
       COOKIE: ${{ secrets.COOKIE }}
       Random: ${{ secrets.Random }}
 
@@ -29,18 +23,6 @@ jobs:
       
       - name: signin
         run: |
-          OUTPUT=$(./signin.sh)
-          echo "OUTPUT=$OUTPUT" >> $GITHUB_ENV
-    
-      - name: Send mail
-        if: env.USE_SMTP == 'true'
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ env.SMTP_SERVER }}
-          server_port: ${{ env.SMTP_PORT }}
-          username: ${{ env.SMTP_USERNAME }}
-          password: ${{ env.SMTP_PASSWORD }}
-          subject: GLaDOS 每日签到
-          to: ${{ env.SMTP_RECEIVER }}
-          from: ${{ env.SMTP_USERNAME }}
-          body: ${{ env.OUTPUT }}
+          echo 'FILE_TEXT<<EOF' >> $GITHUB_ENV
+          cat ./signin.sh >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
