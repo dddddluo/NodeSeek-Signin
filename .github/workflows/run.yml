@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Set script permissions
-        run: chmod +x signin.sh
+        run: chmod +x signin.sh;env
       
       - name: signin
         run: |
