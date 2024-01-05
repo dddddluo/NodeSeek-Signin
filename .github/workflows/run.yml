@@ -23,6 +23,5 @@ jobs:
       
       - name: signin
         run: |
-          echo 'FILE_TEXT<<EOF' >> $GITHUB_ENV
-          cat ./signin.sh >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          OUTPUT=$(./signin.sh)
+          echo "OUTPUT=$OUTPUT" >> $GITHUB_ENV
